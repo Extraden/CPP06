@@ -1,11 +1,11 @@
-NAME = conversion
+NAME = convert
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
 OBJ_DIR = obj
 
-SRCS = main.cpp
+SRCS = main.cpp ScalarConverter.cpp
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.cpp=.o))
 DEPS = $(OBJS:.o=.d)
 
@@ -28,6 +28,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all re clean fclean
+.PHONY: all clean fclean re
 
 -include $(DEPS)
