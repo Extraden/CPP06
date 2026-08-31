@@ -37,26 +37,24 @@ bool  isInt(const std::string& literal)
 
 bool  isDouble(const std::string& literal)
 {
-  bool hasPoint = false;
+  int points = 0;
+  for (size_t i = 0; i < literal.length(); ++i)
+  {
+    if (literal[i] == '.')
+      points++;
+  }
+  if (points != 1)
+    return false;
+
   size_t i = 0;
 
   if (literal[0] == '+' || literal[0] == '-')
     ++i;
 
-  ssize_t pointIndex = literal.find('.');
-  (void) pointIndex;
-  
   while (i < literal.length())
   {
-    if (literal[i] == '.')
-    {
-      if (hasPoint == true)
+    if (!(std::isdigit(literal[i])) && (literal[i] != '.'))
         return false;
-      else
-        hasPoint = true;
-    }
-    if (std::isdigit(literal[i]))
-
     ++i;
   }
   return true;
@@ -64,19 +62,14 @@ bool  isDouble(const std::string& literal)
 
 bool  isFloat(const std::string& literal)
 {
-  size_t i = 0;
-  if (literal[0] == '+' || literal[0] == '-')
-    ++i;
-  while (i < literal.length())
-  {
-    if (!(std::isdigit(literal[i])))
-      return false;
-    ++i;
-  }
-  return true;
+  std::string res = literal.substr(0, literal.length() - 1);
+  if (isDouble(res) && literal[literal.length() - 1] == 'f')
+    return true;
+  else
+    return false;
 }
 
-e_type  ScalarConverter::checkType(const std::string& literal)
+e_type  checkType(const std::string& literal)
 {
   if (literal.length() == 1 && !isdigit(literal[0]))
     return CHAR;
@@ -94,7 +87,7 @@ e_type  ScalarConverter::checkType(const std::string& literal)
     return INVALID;
 }
 
-void  ScalarConverter::handlePseudo(const std::string& literal)
+void  handlePseudo(const std::string& literal)
 {
   double value = 0;
 
@@ -110,7 +103,7 @@ void  ScalarConverter::handlePseudo(const std::string& literal)
             << "double: " << value << "\n";
 }
 
-void    ScalarConverter::handleChar(char c)
+void    handleChar(char c)
 {
   std::cout << "char: " << c << "\n"
             << "int: " << static_cast<int>(c) << "\n"
@@ -130,7 +123,7 @@ void  handleInt(const std::string& literal)
   if (std::isprint(c))
     std::cout << "char: " << c << "\n";
   else
-    std::cout << "Non displayable\n";
+    std::cout << "char: Non displayable\n";
 
 
   std::cout << "int: " << i << "\n"
@@ -139,7 +132,7 @@ void  handleInt(const std::string& literal)
             << "double: " << d << "\n";
 }
 
-void  ScalarConverter::handleNumber(const std::string& literal)
+void  handleDouble(const std::string& literal)
 {
   char *end;
 
@@ -151,30 +144,49 @@ void  ScalarConverter::handleNumber(const std::string& literal)
   if (std::isprint(c))
     std::cout << "char: " << c << "\n";
   else
-    std::cout << "Non displayable\n";
+    std::cout << "char: Non displayable\n";
   
 
   std::cout << "int: " << i << "\n"
-            << std::fixed << std::setprecision(1)
+            << std::fixed
+            << "float: " << f << "f\n"
+            << "double: " << d << "\n";
+}
+
+void  handleFloat(const std::string& literal)
+{
+  char *end;
+
+  float f = std::strtof(literal.c_str(), &end);
+  char c = static_cast<char>(f);
+  int i = static_cast<int>(f);
+  double d = static_cast<double>(f);
+
+  if (std::isprint(c))
+    std::cout << "char: " << c << "\n";
+  else
+    std::cout << "char: Non displayable\n";
+  
+
+  std::cout << "int: " << i << "\n"
+            << std::fixed
             << "float: " << f << "f\n"
             << "double: " << d << "\n";
 }
 
 void  ScalarConverter::convert(const std::string& literal)
 {
-  e_type type = ScalarConverter::checkType(literal);
+  e_type type = checkType(literal);
 
   if (type == PSEUDO)
-  {
     handlePseudo(literal);
-    return;
-  }
   else if (type == CHAR)
     handleChar(literal[0]);
   else if (type == INT)
     handleInt(literal);
-  else if (type == NUMBER)
-    handleNumber(literal);
-  return;
+  else if (type == DOUBLE)
+    handleDouble(literal);
+  else if (type == FLOAT)
+    handleFloat(literal);
 }
 
