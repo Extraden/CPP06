@@ -23,7 +23,7 @@ ScalarConverter::~ScalarConverter() {}
 
 bool  isInt(const std::string& literal)
 {
-  int i = 0;
+  size_t i = 0;
   if (literal[0] == '+' || literal[0] == '-')
     ++i;
   while (i < literal.length())
@@ -38,12 +38,13 @@ bool  isInt(const std::string& literal)
 bool  isDouble(const std::string& literal)
 {
   bool hasPoint = false;
-  int i = 0;
+  size_t i = 0;
 
   if (literal[0] == '+' || literal[0] == '-')
     ++i;
 
   ssize_t pointIndex = literal.find('.');
+  (void) pointIndex;
   
   while (i < literal.length())
   {
@@ -63,7 +64,7 @@ bool  isDouble(const std::string& literal)
 
 bool  isFloat(const std::string& literal)
 {
-  int i = 0;
+  size_t i = 0;
   if (literal[0] == '+' || literal[0] == '-')
     ++i;
   while (i < literal.length())
@@ -118,6 +119,26 @@ void    ScalarConverter::handleChar(char c)
             << "double: " << static_cast<double>(c) << "\n";
 }
 
+void  handleInt(const std::string& literal)
+{
+  int i = std::atoi(literal.c_str());
+
+  double d = static_cast<double>(i);
+  char c = static_cast<char>(i);
+  float f = static_cast<float>(i);
+
+  if (std::isprint(c))
+    std::cout << "char: " << c << "\n";
+  else
+    std::cout << "Non displayable\n";
+
+
+  std::cout << "int: " << i << "\n"
+            << std::fixed << std::setprecision(1)
+            << "float: " << f << "f\n"
+            << "double: " << d << "\n";
+}
+
 void  ScalarConverter::handleNumber(const std::string& literal)
 {
   char *end;
@@ -150,6 +171,8 @@ void  ScalarConverter::convert(const std::string& literal)
   }
   else if (type == CHAR)
     handleChar(literal[0]);
+  else if (type == INT)
+    handleInt(literal);
   else if (type == NUMBER)
     handleNumber(literal);
   return;
