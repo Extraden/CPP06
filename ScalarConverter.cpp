@@ -1,6 +1,7 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
 #include <limits>
+#include <iomanip>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -29,7 +30,7 @@ e_type  ScalarConverter::checkType(const std::string& literal)
     return INVALID;
 }
 
-void  handlePseudo(const std::string& literal)
+void  ScalarConverter::handlePseudo(const std::string& literal)
 {
   double value = 0;
 
@@ -45,6 +46,14 @@ void  handlePseudo(const std::string& literal)
             << "double: " << value << "\n";
 }
 
+void    ScalarConverter::handleChar(char c)
+{
+  std::cout << "char: " << c << "\n"
+            << "int: " << static_cast<int>(c) << "\n"
+            << std::fixed << std::setprecision(1)
+            << "float: " << static_cast<float>(c) << "f\n"
+            << "double: " << static_cast<double>(c) << "\n";
+}
 //void  printOuput()
 
 void  ScalarConverter::convert(const std::string& literal)
@@ -56,6 +65,8 @@ void  ScalarConverter::convert(const std::string& literal)
     handlePseudo(literal);
     return;
   }
+  else if (type == CHAR)
+    handleChar(literal[0]);
   return;
 }
 
