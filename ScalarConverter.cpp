@@ -105,7 +105,7 @@ void  handlePseudo(const std::string& literal)
 
 void    handleChar(char c)
 {
-  std::cout << "char: " << c << "\n"
+  std::cout << "char: " << "'" << c << "'" << "\n"
             << "int: " << static_cast<int>(c) << "\n"
             << std::fixed << std::setprecision(1)
             << "float: " << static_cast<float>(c) << "f\n"
@@ -121,7 +121,7 @@ void  handleInt(const std::string& literal)
   float f = static_cast<float>(i);
 
   if (std::isprint(c))
-    std::cout << "char: " << c << "\n";
+    std::cout << "char: " << "'" << c << "'" << "\n";
   else
     std::cout << "char: Non displayable\n";
 
@@ -142,7 +142,7 @@ void  handleDouble(const std::string& literal)
   float f = static_cast<float>(d);
 
   if (std::isprint(c))
-    std::cout << "char: " << c << "\n";
+    std::cout << "char: " << "'" << c << "'" << "\n";
   else
     std::cout << "char: Non displayable\n";
   
@@ -163,7 +163,7 @@ void  handleFloat(const std::string& literal)
   double d = static_cast<double>(f);
 
   if (std::isprint(c))
-    std::cout << "char: " << c << "\n";
+    std::cout << "char: " << "'" << c << "'" << "\n";
   else
     std::cout << "char: Non displayable\n";
   
