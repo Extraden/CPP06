@@ -3,14 +3,27 @@
 
 #include <string>
 
+enum e_type {
+  CHAR,
+  INT,
+  FLOAT,
+  DOUBLE,
+  PSEUDO,
+  INVALID
+};
+
 class ScalarConverter
 {
     public:
-        ScalarConverter();
-        ~ScalarConverter();
+        static void  convert(const std::string& literal);
     
     private:
-        std::string _value;
+        ScalarConverter();
+        ScalarConverter(const ScalarConverter& other);
+        ScalarConverter&  operator=(const ScalarConverter& other);
+        ~ScalarConverter();
+
+        static e_type  checkType(const std::string& literal);
 };
 
 #endif
