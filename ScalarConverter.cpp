@@ -1,4 +1,6 @@
 #include "ScalarConverter.hpp"
+#include <algorithm>
+#include <cstddef>
 #include <iostream>
 #include <limits>
 #include <iomanip>
@@ -19,15 +21,57 @@ ScalarConverter&  ScalarConverter::operator=(const ScalarConverter& other)
 
 ScalarConverter::~ScalarConverter() {}
 
-bool  isNumber(const std::string& literal)
+bool  isInt(const std::string& literal)
 {
-  if (!(literal[0] == '+' || literal[0] == '-' || std::isdigit(literal[0])))
-    return false;
-  if (!(literal[literal.length() - 1] == 'f' || std::isdigit(literal[literal.length() - 1])))
-    return false;
-  for (size_t i = 0; i < literal.length() - 1; ++i)
+  int i = 0;
+  if (literal[0] == '+' || literal[0] == '-')
+    ++i;
+  while (i < literal.length())
+  {
     if (!(std::isdigit(literal[i])))
       return false;
+    ++i;
+  }
+  return true;
+}
+
+bool  isDouble(const std::string& literal)
+{
+  bool hasPoint = false;
+  int i = 0;
+
+  if (literal[0] == '+' || literal[0] == '-')
+    ++i;
+
+  ssize_t pointIndex = literal.find('.');
+  
+  while (i < literal.length())
+  {
+    if (literal[i] == '.')
+    {
+      if (hasPoint == true)
+        return false;
+      else
+        hasPoint = true;
+    }
+    if (std::isdigit(literal[i]))
+
+    ++i;
+  }
+  return true;
+}
+
+bool  isFloat(const std::string& literal)
+{
+  int i = 0;
+  if (literal[0] == '+' || literal[0] == '-')
+    ++i;
+  while (i < literal.length())
+  {
+    if (!(std::isdigit(literal[i])))
+      return false;
+    ++i;
+  }
   return true;
 }
 
@@ -39,8 +83,12 @@ e_type  ScalarConverter::checkType(const std::string& literal)
           literal == "+inff" || literal == "-inff" || 
           literal == "nan" || literal == "nanf")
     return PSEUDO;
-  else if (isNumber(literal))
-    return NUMBER;
+  else if (isInt(literal))
+    return INT;
+  else if (isDouble(literal))
+    return DOUBLE;
+  else if (isFloat(literal))
+    return FLOAT;
   else
     return INVALID;
 }
