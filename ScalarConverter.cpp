@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits>
 #include <iomanip>
+#include <cstdlib>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -18,6 +19,18 @@ ScalarConverter&  ScalarConverter::operator=(const ScalarConverter& other)
 
 ScalarConverter::~ScalarConverter() {}
 
+bool  isNumber(const std::string& literal)
+{
+  if (!(literal[0] == '+' || literal[0] == '-' || std::isdigit(literal[0])))
+    return false;
+  if (!(literal[literal.length() - 1] == 'f' || std::isdigit(literal[literal.length() - 1])))
+    return false;
+  for (size_t i = 0; i < literal.length() - 1; ++i)
+    if (!(std::isdigit(literal[i])))
+      return false;
+  return true;
+}
+
 e_type  ScalarConverter::checkType(const std::string& literal)
 {
   if (literal.length() == 1 && !isdigit(literal[0]))
@@ -26,6 +39,8 @@ e_type  ScalarConverter::checkType(const std::string& literal)
           literal == "+inff" || literal == "-inff" || 
           literal == "nan" || literal == "nanf")
     return PSEUDO;
+  else if (isNumber(literal))
+    return NUMBER;
   else
     return INVALID;
 }
@@ -54,7 +69,27 @@ void    ScalarConverter::handleChar(char c)
             << "float: " << static_cast<float>(c) << "f\n"
             << "double: " << static_cast<double>(c) << "\n";
 }
-//void  printOuput()
+
+void  ScalarConverter::handleNumber(const std::string& literal)
+{
+  char *end;
+
+  double d = std::strtod(literal.c_str(), &end);
+  char c = static_cast<char>(d);
+  int i = static_cast<int>(d);
+  float f = static_cast<float>(d);
+
+  if (std::isprint(c))
+    std::cout << "char: " << c << "\n";
+  else
+    std::cout << "Non displayable\n";
+  
+
+  std::cout << "int: " << i << "\n"
+            << std::fixed << std::setprecision(1)
+            << "float: " << f << "f\n"
+            << "double: " << d << "\n";
+}
 
 void  ScalarConverter::convert(const std::string& literal)
 {
@@ -67,6 +102,8 @@ void  ScalarConverter::convert(const std::string& literal)
   }
   else if (type == CHAR)
     handleChar(literal[0]);
+  else if (type == NUMBER)
+    handleNumber(literal);
   return;
 }
 

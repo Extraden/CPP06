@@ -5,6 +5,7 @@
 
 enum e_type {
   CHAR,
+  NUMBER,
   INT,
   FLOAT,
   DOUBLE,
@@ -26,6 +27,7 @@ class ScalarConverter
         static  e_type  checkType(const std::string& literal);
         static  void    handlePseudo(const std::string& literal);
         static  void    handleChar(char c);
+        static  void    handleNumber(const std::string& literal);
 };
 
 #endif
