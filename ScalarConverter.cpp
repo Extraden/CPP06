@@ -4,6 +4,7 @@
 #include <limits>
 #include <iomanip>
 #include <cstdlib>
+#include <sstream>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -62,7 +63,7 @@ bool  isDouble(const std::string& literal)
 bool  isFloat(const std::string& literal)
 {
   std::string res = literal.substr(0, literal.length() - 1);
-  if (isDouble(res) && literal[literal.length() - 1] == 'f')
+  if ((isDouble(res) || isInt(res))&& literal[literal.length() - 1] == 'f')
     return true;
   else
     return false;
@@ -154,9 +155,12 @@ void  handleDouble(const std::string& literal)
 
 void  handleFloat(const std::string& literal)
 {
-  char *end;
+  std::string tmp = literal.substr(0, literal.length() - 1);
+  std::istringstream iss(tmp);
 
-  float f = std::strtof(literal.c_str(), &end);
+  float f;
+  iss >> f;
+
   char c = static_cast<char>(f);
   int i = static_cast<int>(f);
   double d = static_cast<double>(f);
