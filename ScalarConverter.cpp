@@ -1,5 +1,4 @@
 #include "ScalarConverter.hpp"
-#include <algorithm>
 #include <cstddef>
 #include <iostream>
 #include <limits>
@@ -188,5 +187,7 @@ void  ScalarConverter::convert(const std::string& literal)
     handleDouble(literal);
   else if (type == FLOAT)
     handleFloat(literal);
+  else if (type == INVALID)
+    std::cout << "Invalid input\n";
 }
 
