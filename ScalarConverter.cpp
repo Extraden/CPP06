@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include <sstream>
+#include <cctype>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -160,19 +161,17 @@ void  handleInt(const std::string& literal)
   else
   {
     int i = static_cast<int>(l);
-    double d = static_cast<double>(l);
-    float f = static_cast<float>(l);
+    double d = static_cast<double>(i);
+    float f = static_cast<float>(i);
     if ((l > std::numeric_limits<char>::max()) || (l < std::numeric_limits<char>::min()))
       std::cout << "char: impossible\n";
     else
     {
-
       char c = static_cast<char>(i);
-      if (std::isprint(c))
+      if (std::isprint(static_cast<unsigned char>(c)))
         std::cout << "char: " << "'" << c << "'" << "\n";
       else
         std::cout << "char: Non displayable\n";
-
     }
 
   std::cout << "int: " << i << "\n"
@@ -191,7 +190,7 @@ void  handleDouble(const std::string& literal)
   int i = static_cast<int>(d);
   float f = static_cast<float>(d);
 
-  if (std::isprint(c))
+  if (std::isprint(static_cast<unsigned char>(c)))
     std::cout << "char: " << "'" << c << "'" << "\n";
   else
     std::cout << "char: Non displayable\n";
@@ -215,7 +214,7 @@ void  handleFloat(const std::string& literal)
   int i = static_cast<int>(f);
   double d = static_cast<double>(f);
 
-  if (std::isprint(c))
+  if (std::isprint(static_cast<unsigned char>(c)))
     std::cout << "char: " << "'" << c << "'" << "\n";
   else
     std::cout << "char: Non displayable\n";
