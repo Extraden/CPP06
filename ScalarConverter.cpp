@@ -2,10 +2,10 @@
 #include <cstddef>
 #include <iostream>
 #include <limits>
+#include <cerrno>
 #include <iomanip>
 #include <cstdlib>
 #include <sstream>
-#include <limits>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -25,9 +25,6 @@ ScalarConverter::~ScalarConverter() {}
 bool  isInt(const std::string& literal)
 {
   if (literal.empty())
-    return false;
-
-  if (literal.length() > 11)
     return false;
 
   size_t i = 0;
@@ -138,22 +135,46 @@ void    handleChar(char c)
 
 void  handleInt(const std::string& literal)
 {
-  int i = std::atoi(literal.c_str());
+  errno = 0;
+  char *end;
 
-  double d = static_cast<double>(i);
-  char c = static_cast<char>(i);
-  float f = static_cast<float>(i);
+  long l = std::strtol(literal.c_str(), &end, 10);
+  if (errno == ERANGE)
+  {
+    std::cout << "char: impossible\n"
+            << "int: impossible\n"
+            << "float: impossible\n"
+            << "double: impossible\n";
+  }
+  else if (l < std::numeric_limits<int>::min() || l > std::numeric_limits<int>::max())
+  {
+
+    double d = static_cast<double>(l);
+    float f = static_cast<float>(l);
+    std::cout << "char: impossible\n"
+            << "int: impossible\n"
+            << std::fixed << std::setprecision(1)
+            << "float: " << f << "f\n"
+            << "double: " << d << "\n";
+  }
+  else
+  {
+    int i = std::atoi(literal.c_str());
+    double d = static_cast<double>(i);
+    char c = static_cast<char>(i);
+    float f = static_cast<float>(i);
 
   if (std::isprint(c))
     std::cout << "char: " << "'" << c << "'" << "\n";
   else
     std::cout << "char: Non displayable\n";
 
-
   std::cout << "int: " << i << "\n"
-            << std::fixed << std::setprecision(1)
-            << "float: " << f << "f\n"
-            << "double: " << d << "\n";
+          << std::fixed << std::setprecision(1)
+          << "float: " << f << "f\n"
+          << "double: " << d << "\n";
+  }
+
 }
 
 void  handleDouble(const std::string& literal)
