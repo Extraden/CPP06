@@ -159,22 +159,27 @@ void  handleInt(const std::string& literal)
   }
   else
   {
-    int i = std::atoi(literal.c_str());
-    double d = static_cast<double>(i);
-    char c = static_cast<char>(i);
-    float f = static_cast<float>(i);
+    int i = static_cast<int>(l);
+    double d = static_cast<double>(l);
+    float f = static_cast<float>(l);
+    if ((l > std::numeric_limits<char>::max()) || (l < std::numeric_limits<char>::min()))
+      std::cout << "char: impossible\n";
+    else
+    {
 
-  if (std::isprint(c))
-    std::cout << "char: " << "'" << c << "'" << "\n";
-  else
-    std::cout << "char: Non displayable\n";
+      char c = static_cast<char>(i);
+      if (std::isprint(c))
+        std::cout << "char: " << "'" << c << "'" << "\n";
+      else
+        std::cout << "char: Non displayable\n";
+
+    }
 
   std::cout << "int: " << i << "\n"
           << std::fixed << std::setprecision(1)
           << "float: " << f << "f\n"
           << "double: " << d << "\n";
   }
-
 }
 
 void  handleDouble(const std::string& literal)
