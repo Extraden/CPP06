@@ -43,6 +43,7 @@ bool  isDouble(const std::string& literal)
   if (literal.empty())
     return false;
 
+  bool hasDigit = false;
   int points = 0;
   for (size_t i = 0; i < literal.length(); ++i)
   {
@@ -61,8 +62,12 @@ bool  isDouble(const std::string& literal)
   {
     if (!(std::isdigit(literal[i])) && (literal[i] != '.'))
         return false;
+    if (std::isdigit(literal[i]))
+      hasDigit = true;
     ++i;
   }
+  if (!hasDigit)
+    return false;
   return true;
 }
 
