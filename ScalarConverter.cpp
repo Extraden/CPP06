@@ -23,6 +23,9 @@ ScalarConverter::~ScalarConverter() {}
 
 bool  isInt(const std::string& literal)
 {
+  if (literal.empty())
+    return false;
+
   size_t i = 0;
   if (literal[0] == '+' || literal[0] == '-')
     ++i;
@@ -37,6 +40,9 @@ bool  isInt(const std::string& literal)
 
 bool  isDouble(const std::string& literal)
 {
+  if (literal.empty())
+    return false;
+
   int points = 0;
   for (size_t i = 0; i < literal.length(); ++i)
   {
@@ -62,8 +68,11 @@ bool  isDouble(const std::string& literal)
 
 bool  isFloat(const std::string& literal)
 {
+  if (literal.empty())
+    return false;
+
   std::string res = literal.substr(0, literal.length() - 1);
-  if ((isDouble(res) || isInt(res))&& literal[literal.length() - 1] == 'f')
+  if ((isDouble(res) || isInt(res)) && literal[literal.length() - 1] == 'f')
     return true;
   else
     return false;
