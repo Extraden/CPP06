@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include <sstream>
+#include <limits>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -24,6 +25,9 @@ ScalarConverter::~ScalarConverter() {}
 bool  isInt(const std::string& literal)
 {
   if (literal.empty())
+    return false;
+
+  if (literal.length() > 11)
     return false;
 
   size_t i = 0;
@@ -83,7 +87,7 @@ bool  isFloat(const std::string& literal)
 
   std::string res = literal.substr(0, literal.length() - 1);
 
-  if ((isDouble(res) || isInt(res)))
+  if (isDouble(res))
     return true;
 
   return false;
