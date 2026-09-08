@@ -163,7 +163,7 @@ void  handleInt(const std::string& literal)
     int i = static_cast<int>(l);
     double d = static_cast<double>(i);
     float f = static_cast<float>(i);
-    if ((l > std::numeric_limits<char>::max()) || (l < std::numeric_limits<char>::min()))
+    if ((i > std::numeric_limits<char>::max()) || (i < std::numeric_limits<char>::min()))
       std::cout << "char: impossible\n";
     else
     {
