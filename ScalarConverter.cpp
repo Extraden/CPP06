@@ -140,23 +140,12 @@ void  handleInt(const std::string& literal)
   char *end;
 
   long l = std::strtol(literal.c_str(), &end, 10);
-  if (errno == ERANGE)
+  if (errno == ERANGE || l < std::numeric_limits<int>::min() || l > std::numeric_limits<int>::max())
   {
     std::cout << "char: impossible\n"
             << "int: impossible\n"
             << "float: impossible\n"
             << "double: impossible\n";
-  }
-  else if (l < std::numeric_limits<int>::min() || l > std::numeric_limits<int>::max())
-  {
-
-    double d = static_cast<double>(l);
-    float f = static_cast<float>(l);
-    std::cout << "char: impossible\n"
-            << "int: impossible\n"
-            << std::fixed << std::setprecision(1)
-            << "float: " << f << "f\n"
-            << "double: " << d << "\n";
   }
   else
   {
