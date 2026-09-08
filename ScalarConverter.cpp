@@ -29,6 +29,10 @@ bool  isInt(const std::string& literal)
   size_t i = 0;
   if (literal[0] == '+' || literal[0] == '-')
     ++i;
+
+  if (i == literal.length())
+    return false;
+
   while (i < literal.length())
   {
     if (!(std::isdigit(literal[i])))
