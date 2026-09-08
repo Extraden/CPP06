@@ -71,11 +71,15 @@ bool  isFloat(const std::string& literal)
   if (literal.empty())
     return false;
 
-  std::string res = literal.substr(0, literal.length() - 1);
-  if ((isDouble(res) || isInt(res)) && literal[literal.length() - 1] == 'f')
-    return true;
-  else
+  if (literal[literal.length() - 1] != 'f')
     return false;
+
+  std::string res = literal.substr(0, literal.length() - 1);
+
+  if ((isDouble(res) || isInt(res)))
+    return true;
+
+  return false;
 }
 
 e_type  checkType(const std::string& literal)
