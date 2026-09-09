@@ -214,7 +214,7 @@ void  handleDouble(const std::string& literal)
     else
     {
       float f = static_cast<float>(d);
-      std::cout << std::fixed << "float: " << f << "\n";
+      std::cout << std::fixed << "float: " << f << "f\n";
     }
 
 
