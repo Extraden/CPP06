@@ -174,6 +174,7 @@ void  handleDouble(const std::string& literal)
 {
   char *end;
 
+  errno = 0;
   double d = std::strtod(literal.c_str(), &end);
 
   if (errno == ERANGE)

@@ -5,7 +5,6 @@
 
 enum e_type {
   CHAR,
-  NUMBER,
   INT,
   FLOAT,
   DOUBLE,

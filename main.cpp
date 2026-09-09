@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
         std::cout
         << "Wrong arguments!\n"
         << "Usage:\n"
-        << "./convert 42f\n";
+        << "./convert 42\n";
         return (0);
     }
 
