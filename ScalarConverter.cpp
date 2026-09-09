@@ -217,7 +217,6 @@ void  handleDouble(const std::string& literal)
       std::cout << std::fixed << "float: " << f << "f\n";
     }
 
-
     std::cout << std::fixed
               << "double: " << d << "\n";
   }
@@ -226,23 +225,43 @@ void  handleDouble(const std::string& literal)
 void  handleFloat(const std::string& literal)
 {
   std::string tmp = literal.substr(0, literal.length() - 1);
-  std::istringstream iss(tmp);
 
-  float f;
-  iss >> f;
+  char *end;
+  errno = 0;
+  double parsed = strtod(tmp.c_str(), &end);
 
-  char c = static_cast<char>(f);
-  int i = static_cast<int>(f);
+
+  if (errno == ERANGE && (parsed == HUGE_VAL || parsed == -HUGE_VAL))
+  {
+    std::cout << "char: impossible\n"
+            << "int: impossible\n"
+            << "float: impossible\n"
+            << "double: impossible\n";
+    return;
+  }
+  float f = static_cast<float>(parsed);
+  if ((f >= std::numeric_limits<char>::max() + 1.0) || (f <= std::numeric_limits<char>::min() - 1.0))
+    std::cout << "char: impossible\n";
+  else
+  {
+    char c = static_cast<char>(f);
+    if (std::isprint(static_cast<unsigned char>(c)))
+      std::cout << "char: " << "'" << c << "'" << "\n";
+    else
+      std::cout << "char: Non displayable\n";
+  }
+  if ((f >= std::numeric_limits<int>::max() + 1.0) || (f <= std::numeric_limits<int>::min() - 1.0))
+  {
+    std::cout << "int: impossible\n";
+  }
+  else
+  {
+    int i = static_cast<int>(f);
+    std::cout << "int: " << i << "\n";
+  }
   double d = static_cast<double>(f);
 
-  if (std::isprint(static_cast<unsigned char>(c)))
-    std::cout << "char: " << "'" << c << "'" << "\n";
-  else
-    std::cout << "char: Non displayable\n";
-  
-
-  std::cout << "int: " << i << "\n"
-            << std::fixed
+  std::cout << std::fixed 
             << "float: " << f << "f\n"
             << "double: " << d << "\n";
 }
