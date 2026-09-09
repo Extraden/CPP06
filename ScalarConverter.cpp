@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <cctype>
+#include <cmath>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -177,7 +178,7 @@ void  handleDouble(const std::string& literal)
   errno = 0;
   double d = std::strtod(literal.c_str(), &end);
 
-  if (errno == ERANGE)
+  if (errno == ERANGE && (d == HUGE_VAL || d == -HUGE_VAL))
   {
     std::cout << "char: impossible\n"
             << "int: impossible\n"
