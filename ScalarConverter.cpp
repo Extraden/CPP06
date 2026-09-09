@@ -175,20 +175,32 @@ void  handleDouble(const std::string& literal)
   char *end;
 
   double d = std::strtod(literal.c_str(), &end);
-  char c = static_cast<char>(d);
-  int i = static_cast<int>(d);
-  float f = static_cast<float>(d);
 
-  if (std::isprint(static_cast<unsigned char>(c)))
-    std::cout << "char: " << "'" << c << "'" << "\n";
+  if (errno == ERANGE)
+  {
+    std::cout << "char: impossible\n"
+            << "int: impossible\n"
+            << "float: impossible\n"
+            << "double: impossible\n";
+    return;
+  }
   else
-    std::cout << "char: Non displayable\n";
-  
+  {
+    char c = static_cast<char>(d);
+    int i = static_cast<int>(d);
+    float f = static_cast<float>(d);
 
-  std::cout << "int: " << i << "\n"
-            << std::fixed
-            << "float: " << f << "f\n"
-            << "double: " << d << "\n";
+    if (std::isprint(static_cast<unsigned char>(c)))
+      std::cout << "char: " << "'" << c << "'" << "\n";
+    else
+      std::cout << "char: Non displayable\n";
+    
+
+    std::cout << "int: " << i << "\n"
+              << std::fixed
+              << "float: " << f << "f\n"
+              << "double: " << d << "\n";
+  }
 }
 
 void  handleFloat(const std::string& literal)
