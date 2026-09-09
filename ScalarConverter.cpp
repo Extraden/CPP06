@@ -188,7 +188,7 @@ void  handleDouble(const std::string& literal)
   }
   else
   {
-    if ((d >= std::numeric_limits<char>::max() + 1) || (d <= std::numeric_limits<char>::min() - 1))
+    if ((d >= std::numeric_limits<char>::max() + 1.0) || (d <= std::numeric_limits<char>::min() - 1.0))
       std::cout << "char: impossible\n";
     else
     {
@@ -198,12 +198,19 @@ void  handleDouble(const std::string& literal)
       else
         std::cout << "char: Non displayable\n";
     }
-    int i = static_cast<int>(d);
+    if ((d >= std::numeric_limits<int>::max() + 1.0) || (d <= std::numeric_limits<int>::min() - 1.0))
+    {
+      std::cout << "int: impossible\n";
+    }
+    else
+    {
+      int i = static_cast<int>(d);
+      std::cout << "int: " << i << "\n";
+    }
     float f = static_cast<float>(d);
 
 
-    std::cout << "int: " << i << "\n"
-              << std::fixed
+    std::cout << std::fixed
               << "float: " << f << "f\n"
               << "double: " << d << "\n";
   }
