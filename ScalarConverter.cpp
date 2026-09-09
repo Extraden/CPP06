@@ -207,7 +207,7 @@ void  handleDouble(const std::string& literal)
       int i = static_cast<int>(d);
       std::cout << "int: " << i << "\n";
     }
-    if (d > std::numeric_limits<float>::max() || d < -std::numeric_limits<float>::min())
+    if (d > std::numeric_limits<float>::max() || d < -std::numeric_limits<float>::max())
     {
       std::cout << "float: impossible\n";
     }
