@@ -239,6 +239,14 @@ void  handleFloat(const std::string& literal)
             << "double: impossible\n";
     return;
   }
+  if (parsed > std::numeric_limits<float>::max() || parsed < -std::numeric_limits<float>::max())
+  {
+    std::cout << "char: impossible\n"
+            << "int: impossible\n"
+            << "float: impossible\n"
+            << "double: impossible\n";
+    return;
+  }
   float f = static_cast<float>(parsed);
   if ((f >= std::numeric_limits<char>::max() + 1.0) || (f <= std::numeric_limits<char>::min() - 1.0))
     std::cout << "char: impossible\n";
