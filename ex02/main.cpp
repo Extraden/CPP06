@@ -5,6 +5,7 @@ int	main()
 {
   std::srand(42);
 
-  generate();
+  Base *result = generate();
+  identify(result);
 	return 0;
 }
