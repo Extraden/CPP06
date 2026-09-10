@@ -24,6 +24,17 @@ ScalarConverter&  ScalarConverter::operator=(const ScalarConverter& other)
 
 ScalarConverter::~ScalarConverter() {}
 
+std::string formatFloating(double num)
+{
+  std::ostringstream oss;
+   
+  if (std::floor(num) == num)
+    oss << std::fixed << std::setprecision(1);
+
+  oss << num;
+  return oss.str();
+}
+
 bool  isInt(const std::string& literal)
 {
   if (literal.empty())
@@ -43,17 +54,6 @@ bool  isInt(const std::string& literal)
     ++i;
   }
   return true;
-}
-
-std::string formatFloating(double num)
-{
-  std::ostringstream oss;
-   
-  if (std::floor(num) == num)
-    oss << std::fixed << std::setprecision(1);
-
-  oss << num;
-  return oss.str();
 }
 
 bool  isDouble(const std::string& literal)
@@ -141,8 +141,8 @@ void    handleChar(char c)
 {
   std::cout << "char: " << "'" << c << "'" << "\n"
             << "int: " << static_cast<int>(c) << "\n"
-            << "float: " << static_cast<float>(c) << "f\n"
-            << "double: " << static_cast<double>(c) << "\n";
+            << "float: " << formatFloating(static_cast<float>(c)) << "f\n"
+            << "double: " << formatFloating(static_cast<double>(c)) << "\n";
 }
 
 void  handleInt(const std::string& literal)
@@ -175,7 +175,6 @@ void  handleInt(const std::string& literal)
     }
 
   std::cout << "int: " << i << "\n"
-          << std::fixed << std::setprecision(1)
           << "float: " << formatFloating(f) << "f\n"
           << "double: " << formatFloating(d) << "\n";
   }
@@ -224,11 +223,10 @@ void  handleDouble(const std::string& literal)
     else
     {
       float f = static_cast<float>(d);
-      std::cout << std::fixed << "float: " << formatFloating(f) << "f\n";
+      std::cout << "float: " << formatFloating(f) << "f\n";
     }
 
-    std::cout << std::fixed
-              << "double: " << formatFloating(d) << "\n";
+    std::cout << "double: " << formatFloating(d) << "\n";
   }
 }
 
