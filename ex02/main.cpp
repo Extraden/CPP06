@@ -1,7 +1,10 @@
-#include <iostream>
+#include "Identifier.hpp"
+#include <cstdlib>
 
 int	main()
 {
-	std::cout << "Hello!\n";
+  std::srand(42);
+
+  generate();
 	return 0;
 }
