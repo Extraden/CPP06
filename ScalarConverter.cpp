@@ -277,8 +277,7 @@ void  handleFloat(const std::string& literal)
   }
   double d = static_cast<double>(f);
 
-  std::cout << std::fixed 
-            << "float: " << formatFloating(f) << "f\n"
+  std::cout << "float: " << formatFloating(f) << "f\n"
             << "double: " << formatFloating(d) << "\n";
 }
 
