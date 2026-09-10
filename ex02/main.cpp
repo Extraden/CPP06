@@ -5,7 +5,11 @@ int	main()
 {
   std::srand(42);
 
-  Base *result = generate();
-  identify(result);
+  Base *ptr = generate();
+
+  identify(ptr);
+  identify(*ptr);
+
+  delete ptr;
 	return 0;
 }

@@ -28,6 +28,20 @@ void identify(Base* p)
     std::cout << "Class A\n";
   else if (dynamic_cast<B *>(p))
     std::cout << "Class B\n";
-  else 
+  else if (dynamic_cast<C *>(p))
     std::cout << "Class C\n";
+  else
+   std::cout << "Unknown Class\n";
+}
+
+void identify(Base& p)
+{
+  if (dynamic_cast<A *>(&p))
+    std::cout << "Class A\n";
+  else if (dynamic_cast<B *>(&p))
+    std::cout << "Class B\n";
+  else if (dynamic_cast<C *>(&p))
+    std::cout << "Class C\n";
+  else
+   std::cout << "Unknown Class\n";
 }
