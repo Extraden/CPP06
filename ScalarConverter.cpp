@@ -5,9 +5,9 @@
 #include <cerrno>
 #include <iomanip>
 #include <cstdlib>
-#include <sstream>
 #include <cctype>
 #include <cmath>
+#include <sstream>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -43,6 +43,17 @@ bool  isInt(const std::string& literal)
     ++i;
   }
   return true;
+}
+
+std::string formatFloating(double num)
+{
+  std::ostringstream oss;
+   
+  if (std::floor(num) == num)
+    oss << std::fixed << std::setprecision(1);
+
+  oss << num;
+  return oss.str();
 }
 
 bool  isDouble(const std::string& literal)
@@ -130,7 +141,6 @@ void    handleChar(char c)
 {
   std::cout << "char: " << "'" << c << "'" << "\n"
             << "int: " << static_cast<int>(c) << "\n"
-            << std::fixed << std::setprecision(1)
             << "float: " << static_cast<float>(c) << "f\n"
             << "double: " << static_cast<double>(c) << "\n";
 }
@@ -166,8 +176,8 @@ void  handleInt(const std::string& literal)
 
   std::cout << "int: " << i << "\n"
           << std::fixed << std::setprecision(1)
-          << "float: " << f << "f\n"
-          << "double: " << d << "\n";
+          << "float: " << formatFloating(f) << "f\n"
+          << "double: " << formatFloating(d) << "\n";
   }
 }
 
@@ -214,11 +224,11 @@ void  handleDouble(const std::string& literal)
     else
     {
       float f = static_cast<float>(d);
-      std::cout << std::fixed << "float: " << f << "f\n";
+      std::cout << std::fixed << "float: " << formatFloating(f) << "f\n";
     }
 
     std::cout << std::fixed
-              << "double: " << d << "\n";
+              << "double: " << formatFloating(d) << "\n";
   }
 }
 
@@ -270,8 +280,8 @@ void  handleFloat(const std::string& literal)
   double d = static_cast<double>(f);
 
   std::cout << std::fixed 
-            << "float: " << f << "f\n"
-            << "double: " << d << "\n";
+            << "float: " << formatFloating(f) << "f\n"
+            << "double: " << formatFloating(d) << "\n";
 }
 
 void  ScalarConverter::convert(const std::string& literal)
