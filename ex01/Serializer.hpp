@@ -2,7 +2,8 @@
 # define SERIALIZER_HPP
 
 # include <stdint.h>
-# include "Data.hpp"
+
+struct Data;
 
 class Serializer
 {
