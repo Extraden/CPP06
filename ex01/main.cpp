@@ -14,5 +14,6 @@ int	main()
   Data  *result = Serializer::deserialize(ptr);
 
   std::cout << result << "\n";
+  delete data;
 	return 0;
 }
