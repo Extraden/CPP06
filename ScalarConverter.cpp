@@ -228,7 +228,7 @@ void  handleFloat(const std::string& literal)
 
   char *end;
   errno = 0;
-  double parsed = strtod(tmp.c_str(), &end);
+  double parsed = std::strtod(tmp.c_str(), &end);
 
 
   if (errno == ERANGE && (parsed == HUGE_VAL || parsed == -HUGE_VAL))
