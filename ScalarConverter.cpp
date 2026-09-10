@@ -30,8 +30,8 @@ std::string formatFloating(double num)
    
   if (std::floor(num) == num)
     oss << std::fixed << std::setprecision(1);
-
-  oss << std::fixed << std::setprecision(15) << num;
+  else
+    oss << std::setprecision(15) << num;
   return oss.str();
 }
 
@@ -41,8 +41,8 @@ std::string formatFloating(float num)
    
   if (std::floor(num) == num)
     oss << std::fixed << std::setprecision(1);
-
-  oss << std::fixed << std::setprecision(7) << num;
+  else
+    oss << std::setprecision(15) << num;
   return oss.str();
 }
 
