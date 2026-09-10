@@ -5,7 +5,7 @@ CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -MMD -MP
 
 OBJ_DIR = obj
 
-SRCS = main.cpp Base.cpp A.cpp B.cpp C.cpp
+SRCS = main.cpp Base.cpp A.cpp B.cpp C.cpp Identifier.cpp
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJS:.o=.d)
 
