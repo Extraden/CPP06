@@ -5,7 +5,7 @@ CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -MMD -MP
 
 OBJ_DIR = obj
 
-SRCS = main.cpp serializer.cpp
+SRCS = main.cpp Serializer.cpp
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJS:.o=.d)
 
