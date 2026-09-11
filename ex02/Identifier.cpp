@@ -25,11 +25,11 @@ Base* generate(void)
 void identify(Base* p)
 {
   if (dynamic_cast<A *>(p))
-    std::cout << "Class A\n";
+    std::cout << "A\n";
   else if (dynamic_cast<B *>(p))
-    std::cout << "Class B\n";
+    std::cout << "B\n";
   else if (dynamic_cast<C *>(p))
-    std::cout << "Class C\n";
+    std::cout << "C\n";
   else
    std::cout << "Unknown Class\n";
 }
@@ -39,21 +39,21 @@ void identify(Base& p)
   try
   {
     (void)dynamic_cast<A&>(p);
-    std::cout << "Class A\n";
+    std::cout << "A\n";
     return;
   }
   catch (...) {}
 
   try {
     (void)dynamic_cast<B&>(p);
-    std::cout << "Class B\n";
+    std::cout << "B\n";
     return;
   }
   catch (...) {}
 
   try {
     (void)dynamic_cast<C&>(p);
-    std::cout << "Class C\n";
+    std::cout << "C\n";
     return;
   } 
   catch (...) {}
