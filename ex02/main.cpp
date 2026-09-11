@@ -3,13 +3,19 @@
 
 int	main()
 {
-  std::srand(42);
+  std::srand(50);
 
-  Base *ptr = generate();
+  Base *ptr1 = generate();
 
-  identify(ptr);
-  identify(*ptr);
+  identify(ptr1);
+  identify(*ptr1);
 
-  delete ptr;
+  Base *ptr2 = generate();
+
+  identify(ptr2);
+  identify(*ptr2);
+
+  delete ptr1;
+  delete ptr2;
 	return 0;
 }
